@@ -1,0 +1,4 @@
+﻿Account Type,Account Number,Transaction Date,Cheque Number,Description 1,Description 2,CAD$,USD$
+Chequing,01234-5678901,10/1/2026,,PAYROLL DEPOSIT,ACME CORP,2500.00,
+Chequing,01234-5678901,10/2/2026,,Interac purchase,SHOPPERS DRUG MART,-23.45,
+Chequing,01234-5678901,10/15/2026,,Online Banking payment,TD VISA,-250.00,

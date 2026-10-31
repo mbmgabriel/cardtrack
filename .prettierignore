@@ -1,0 +1,9 @@
+node_modules
+.expo
+dist
+coverage
+ios
+android
+PLAN.md
+assets
+drizzle

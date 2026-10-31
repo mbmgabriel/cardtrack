@@ -4,40 +4,108 @@
   "main": "expo-router/entry",
   "dependencies": {
     "@expo/ui": "~58.0.25",
+    "@expo/vector-icons": "^15.0.2",
+    "@hookform/resolvers": "^6.0.2",
+    "@react-native-community/datetimepicker": "9.2.1",
+    "@shopify/react-native-skia": "2.14.0",
+    "date-fns": "^4.4.0",
+    "drizzle-orm": "^0.45.4",
     "expo": "~58.0.21",
     "expo-constants": "~58.0.14",
+    "expo-crypto": "~58.0.7",
     "expo-device": "~58.0.5",
+    "expo-document-picker": "~58.0.4",
+    "expo-file-system": "~58.0.13",
     "expo-font": "~58.0.11",
     "expo-glass-effect": "~58.0.5",
+    "expo-haptics": "~58.0.7",
     "expo-image": "~58.0.18",
+    "expo-image-picker": "~58.0.10",
     "expo-linking": "~58.0.15",
+    "expo-local-authentication": "~58.0.2",
+    "expo-localization": "~58.0.5",
+    "expo-notifications": "~58.1.7",
     "expo-router": "~58.0.28",
+    "expo-secure-store": "~58.0.2",
+    "expo-sharing": "~58.0.21",
     "expo-splash-screen": "~58.0.12",
+    "expo-sqlite": "~58.0.14",
     "expo-status-bar": "~58.0.4",
     "expo-symbols": "~58.0.4",
     "expo-system-ui": "~58.0.7",
     "expo-web-browser": "~58.0.7",
+    "i18next": "^26.5.11",
+    "papaparse": "^5.7.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "react-hook-form": "^7.91.0",
+    "react-i18next": "^17.1.9",
     "react-native": "0.88.1",
     "react-native-gesture-handler": "~3.3.0",
+    "react-native-paper": "^5.15.3",
     "react-native-reanimated": "4.7.1",
     "react-native-safe-area-context": "~5.10.1",
     "react-native-screens": "~4.30.0",
     "react-native-web": "~0.21.4",
-    "react-native-worklets": "0.13.0"
+    "react-native-worklets": "0.13.0",
+    "victory-native": "^43.0.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@testing-library/react-native": "^14.1.0",
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/jest": "30.0.0",
+    "@types/papaparse": "^5.5.2",
     "@types/react": "~19.3.0",
+    "babel-plugin-inline-import": "^3.0.0",
+    "better-sqlite3": "^13.0.3",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "~58.0.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.7",
+    "jest": "~30.5.2",
+    "jest-expo": "~58.0.13",
+    "prettier": "^3.9.10",
     "typescript": "~6.0.3"
   },
   "scripts": {
     "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "db:generate": "drizzle-kit generate"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "jest-expo",
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.ts"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/app/**",
+      "!src/utils/test-utils.tsx",
+      "!src/db/test-database.ts",
+      "!src/db/client.ts",
+      "!src/db/index.ts"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|react-native-paper|react-native-vector-icons|i18next|react-i18next|victory-native|@shopify/react-native-skia|drizzle-orm|standard-navigation)"
+    ],
+    "coverageThreshold": {
+      "./src/domain/": {
+        "statements": 90,
+        "branches": 90,
+        "functions": 90,
+        "lines": 90
+      }
+    },
+    "resolver": "react-native-reanimated/jest/resolver"
+  }
 }

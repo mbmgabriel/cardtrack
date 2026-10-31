@@ -1,56 +1,66 @@
-# Welcome to your Expo app 👋
+# CardTrack
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A private, offline-first mobile app for tracking credit cards, debit/chequing accounts, transactions, pre-authorized payments, statements and due dates. All data stays on the device.
 
-## Get started
+See [PLAN.md](PLAN.md) for the full product spec and build phases.
 
-1. Install dependencies
+## Requirements
 
-   ```bash
-   npm install
-   ```
+- Node.js 22+
+- The **Expo Go** app on your phone (App Store / Google Play), or an iOS Simulator / Android Emulator
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Getting started
 
 ```bash
-npm run reset-project
+npm install
+npm start
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Scan the QR code with your phone's camera (iOS) or the Expo Go app (Android). Your phone and computer must be on the same network; if they aren't, run `npx expo start --tunnel`.
 
-### Other setup steps
+Press `i` or `a` in the terminal to open the iOS Simulator or Android Emulator instead.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Scripts
 
-## Learn more
+| Command                 | What it does                           |
+| ----------------------- | -------------------------------------- |
+| `npm start`             | Start the Expo dev server              |
+| `npm run typecheck`     | TypeScript check (`tsc --noEmit`)      |
+| `npm run lint`          | ESLint (Expo config + Prettier)        |
+| `npm run format`        | Format all files with Prettier         |
+| `npm test`              | Run Jest tests                         |
+| `npm run test:coverage` | Run tests with a coverage report       |
+| `npm run db:generate`   | Create a migration from schema changes |
 
-To learn more about developing your project with Expo, look at the following resources:
+Add libraries with `npx expo install <package>` so versions stay compatible with the Expo SDK.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Project structure
 
-## Join the community
+```
+src/
+  app/          # expo-router screens (file-based routes)
+    (tabs)/     # Home, Accounts, Activity, Reports, Settings
+  components/   # shared UI components
+  db/           # SQLite schema, migrations, repositories (Phase 1)
+  domain/       # pure business logic: money, balances, dates, dedupe (Phase 1)
+  features/     # feature-specific components and hooks
+  i18n/         # i18next setup and locale files (en-CA, fr-CA)
+  theme/        # React Native Paper (Material 3) light/dark themes
+  utils/        # helpers, incl. test-utils for component tests
+__tests__/      # Jest tests
+```
 
-Join our community of developers creating universal apps.
+## Database
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+SQLite on the device via expo-sqlite + Drizzle ORM. The schema is in `src/db/schema.ts`.
+
+1. Edit the schema.
+2. Run `npm run db:generate` — this writes a new SQL migration into `drizzle/`. Commit it.
+3. The app applies pending migrations on launch, then seeds the built-in categories.
+
+Screens use the repositories in `src/db/repositories/` (via `repos` from `@/db`), never SQL directly.
+Repository tests run against an in-memory SQLite (better-sqlite3) with the real migrations applied.
+
+## Conventions
+
+Money is always stored as integer cents, full card numbers are never stored (last 4 digits only), and every user-facing string goes through i18n. See PLAN.md §3 for the full list.

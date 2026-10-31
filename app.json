@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "cardtrack",
+    "name": "CardTrack",
     "slug": "cardtrack",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -31,6 +31,25 @@
           "backgroundColor": "#208AEF",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
+        }
+      ],
+      "expo-sqlite",
+      "expo-secure-store",
+      "expo-sharing",
+      "expo-localization",
+      "@react-native-community/datetimepicker",
+      [
+        "expo-notifications",
+        {
+          "enableRemoteNotifications": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "CardTrack uses a picture you choose as a card’s background. It stays on this device.",
+          "cameraPermission": false,
+          "microphonePermission": false
         }
       ]
     ],

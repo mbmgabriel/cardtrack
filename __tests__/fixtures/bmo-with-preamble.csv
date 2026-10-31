@@ -1,0 +1,6 @@
+Following data is valid as of 20261030 (Year/Month/Day)
+
+First Bank Card,Transaction Type,Date Posted, Transaction Amount,Description
+'500766**********1234',DEBIT,20261002,-45.00,[DN]PETRO-CANADA
+'500766**********1234',CREDIT,20261003,100.00,[CW]TRANSFER
+Total,,,55.00,

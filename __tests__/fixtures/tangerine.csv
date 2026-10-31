@@ -1,0 +1,4 @@
+Date,Transaction,Name,Memo,Amount
+10/3/2026,DEBIT,Hydro One,Bill payment,-120.33
+10/4/2026,CREDIT,Interest Paid,,1.07
+10/9/2026,DEBIT,"Metro, Inc.",POS,-87.10
